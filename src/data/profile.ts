@@ -2,9 +2,9 @@ export const profile = {
   name: '양승현',
   nameEn: 'Seunghyeon Yang',
   role: 'Data Engineer',
-  headline: '데이터가 신뢰받는 구조를 만듭니다',
+  headline: '데이터 파이프라인을 만들고 운영합니다',
   summary:
-    '백엔드 1년을 거쳐 데이터 엔지니어로 4년. 수집부터 활용까지 파이프라인 전 구간을 직접 설계하고 운영합니다.',
+    '백엔드 1년을 거쳐 데이터 엔지니어로 4년째입니다. 운영 DB의 데이터를 웨어하우스로 옮기고, 분석가가 쓸 수 있는 형태로 다듬는 일을 합니다.',
   email: 'ysh410@gmail.com',
   github: 'https://github.com/1yangsh',
   linkedin: 'https://www.linkedin.com/in/yangseunghyeon/',
@@ -23,16 +23,16 @@ export const metrics = [
 
 export const strengths = [
   {
-    title: 'End-to-End',
-    body: '원천 수집부터 데이터 마트까지 전 구간을 직접 설계했습니다. 기술 하나가 아니라 데이터가 어떻게 흘러야 하는지를 봅니다.',
+    title: '수집부터 마트까지',
+    body: '원천에서 데이터를 가져오는 것부터 분석가가 쓰는 마트까지 전 구간을 다뤘습니다. 한 단계에서 문제가 생겨도 앞뒤를 같이 놓고 볼 수 있습니다.',
   },
   {
-    title: '인프라 × 데이터',
-    body: 'Kubernetes·GCP·GitOps 운영 경험이 있어, 파이프라인 장애를 인프라 레벨까지 내려가 직접 추적합니다.',
+    title: '인프라도 같이 봅니다',
+    body: 'Kubernetes와 GCP 위에서 파이프라인을 운영해왔습니다. 장애가 나면 애플리케이션 로그에서 멈추지 않고 인프라 쪽까지 확인합니다.',
   },
   {
-    title: '자동화',
-    body: '반복되고 휴먼 에러가 나기 쉬운 운영을 발견하면 파이프라인으로 바꿉니다. 수동 SQL 운영을 배치로 전환한 사례가 대표적입니다.',
+    title: '수동 작업을 줄입니다',
+    body: '사람이 반복해서 처리하던 일을 파이프라인으로 옮기는 작업을 여러 번 했습니다. 수동 SQL 운영을 배치로 바꾼 것이 대표적입니다.',
   },
 ] as const;
 
