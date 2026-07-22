@@ -55,6 +55,6 @@ export const stack = [
   { group: 'Orchestration', items: ['Airflow', 'dbt'] },
   { group: 'Warehouse & Lakehouse', items: ['BigQuery', 'Apache Iceberg'] },
   { group: 'Streaming & CDC', items: ['Kafka'] },
-  { group: 'Infrastructure', items: ['Kubernetes', 'GKE', 'EKS', 'Helm', 'Datadog'] },
+  { group: 'Infrastructure', items: ['Docker', 'Kubernetes', 'GKE', 'EKS', 'Helm', 'Datadog'] },
   { group: 'Language', items: ['Python', 'SQL'] },
 ] as const;
