@@ -7,14 +7,18 @@ export const profile = {
     '백엔드 1년을 거쳐 데이터 엔지니어로 4년. 수집부터 활용까지 파이프라인 전 구간을 직접 설계하고 운영합니다.',
   email: 'ysh410@gmail.com',
   github: 'https://github.com/1yangsh',
+  linkedin: 'https://www.linkedin.com/in/yangseunghyeon/',
 } as const;
 
-/** 계기판 지표 — 사내 절대 수치 대신 규모감·개선폭만 노출 */
+/**
+ * 히어로 패널 — 사내 데이터 규모·비용·성능 수치는 넣지 않는다.
+ * 공개 저장소이므로 역량 범위만 드러내고, 구체적인 숫자는 면접에서 구두로 보강한다.
+ */
 export const metrics = [
   { value: '4년+', label: '데이터 엔지니어링' },
-  { value: '수백 TiB', label: '운영 웨어하우스 규모' },
-  { value: '억 단위', label: '일 처리 row' },
-  { value: '70%↓', label: '쿼리 스캔 비용' },
+  { value: 'Batch · CDC', label: '파이프라인' },
+  { value: 'GCP · K8s', label: '인프라 운영' },
+  { value: 'E2E', label: '수집 → 마트 → 활용' },
 ] as const;
 
 export const strengths = [
