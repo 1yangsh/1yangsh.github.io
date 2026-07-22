@@ -52,9 +52,9 @@ export const timeline = [
 ] as const;
 
 export const stack = [
-  { group: 'Orchestration', items: ['Airflow', 'dbt', 'Argo CD'] },
-  { group: 'Warehouse & Lakehouse', items: ['BigQuery', 'Apache Iceberg', 'BigLake'] },
-  { group: 'Streaming & CDC', items: ['Kafka', 'Debezium', 'Strimzi', 'Schema Registry'] },
+  { group: 'Orchestration', items: ['Airflow', 'dbt'] },
+  { group: 'Warehouse & Lakehouse', items: ['BigQuery', 'Apache Iceberg'] },
+  { group: 'Streaming & CDC', items: ['Kafka'] },
   { group: 'Infrastructure', items: ['Kubernetes', 'GKE', 'EKS', 'Helm', 'Datadog'] },
   { group: 'Language', items: ['Python', 'SQL'] },
 ] as const;
