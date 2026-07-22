@@ -32,6 +32,14 @@ const { Content } = await render(entry);
         </p>
         <h1>{entry.data.title}</h1>
         <p class="summary">{entry.data.summary}</p>
+        {
+          entry.data.role && (
+            <p class="role">
+              <span class="role-key">역할</span>
+              {entry.data.role}
+            </p>
+          )
+        }
         <ul class="chips">
           {entry.data.stack.map((s) => <li>{s}</li>)}
         </ul>
@@ -79,6 +87,26 @@ const { Content } = await render(entry);
     margin-top: 0.85rem;
     max-width: 52ch;
     color: var(--muted);
+  }
+
+  .role {
+    margin-top: 1.1rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.65rem;
+    font-size: 0.9rem;
+    max-width: 52ch;
+  }
+
+  .role-key {
+    flex: none;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    padding: 0.1rem 0.4rem;
   }
 
   .chips {

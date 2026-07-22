@@ -3,6 +3,7 @@ title: 셀프서비스 BI 배포 플랫폼
 period: "2026.07"
 org: 쏘카
 summary: 분석가가 SQL과 HTML만 올리면 CI가 독립 서비스로 배포하는 사내 대시보드 플랫폼.
+role: 설계·구현 전담 — 엔진, 포털, 배포 파이프라인
 stack: [Go, BigQuery, Cloud Run, Firebase, React, GitHub Actions]
 order: 6
 ---

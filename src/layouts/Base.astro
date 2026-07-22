@@ -114,6 +114,47 @@ const isHome = Astro.url.pathname === '/';
         );
         targets.forEach((el) => io.observe(el));
       }
+
+      // 스크롤 위치에 따라 현재 섹션 메뉴를 강조 (홈에서만 앵커 링크가 존재)
+      const navLinks = [...document.querySelectorAll<HTMLAnchorElement>('.nav-links a')].filter(
+        (a) => a.getAttribute('href')?.startsWith('#')
+      );
+
+      if (navLinks.length) {
+        const bySection = new Map(
+          navLinks.map((a) => [a.getAttribute('href')!.slice(1), a] as const)
+        );
+        const visible = new Set<string>();
+
+        const spy = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) visible.add(entry.target.id);
+              else visible.delete(entry.target.id);
+            });
+
+            // 여러 섹션이 걸쳐 있으면 문서 순서상 가장 위쪽을 현재로 본다
+            let current: string | null = null;
+            for (const id of bySection.keys()) {
+              if (visible.has(id)) {
+                current = id;
+                break;
+              }
+            }
+
+            bySection.forEach((link, id) => {
+              if (id === current) link.setAttribute('aria-current', 'true');
+              else link.removeAttribute('aria-current');
+            });
+          },
+          { rootMargin: '-20% 0px -55% 0px' }
+        );
+
+        bySection.forEach((_, id) => {
+          const section = document.getElementById(id);
+          if (section) spy.observe(section);
+        });
+      }
     </script>
 
     <style>
@@ -158,6 +199,20 @@ const isHome = Astro.url.pathname === '/';
 
       .nav-links a:hover {
         color: var(--text);
+      }
+
+      .nav-links a[aria-current] {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      .nav-links a[aria-current]::after {
+        content: '';
+        display: block;
+        height: 2px;
+        margin-top: 3px;
+        border-radius: 1px;
+        background: var(--accent);
       }
 
       @media (max-width: 34rem) {
