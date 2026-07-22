@@ -1,0 +1,15 @@
+---
+import Base from '../../layouts/Base.astro';
+import HomeContent from '../../components/HomeContent.astro';
+import { profiles } from '../../data/profile';
+
+const profile = profiles.en;
+---
+
+<Base
+  title={`${profile.nameEn} · ${profile.role}`}
+  description={`${profile.headline} — ${profile.summary}`}
+  locale="en"
+>
+  <HomeContent locale="en" />
+</Base>
