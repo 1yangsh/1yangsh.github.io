@@ -59,21 +59,21 @@ const isHome = Astro.url.pathname === '/';
               isHome ? (
                 <>
                   <li>
-                    <a href="#about">소개</a>
+                    <a href="#about">About</a>
                   </li>
                   <li>
-                    <a href="#work">경력</a>
+                    <a href="#work">Experience</a>
                   </li>
                   <li>
-                    <a href="#projects">프로젝트</a>
+                    <a href="#projects">Projects</a>
                   </li>
                   <li>
-                    <a href="#contact">연락</a>
+                    <a href="#contact">Contact</a>
                   </li>
                 </>
               ) : (
                 <li>
-                  <a href="/#projects">← 전체 프로젝트</a>
+                  <a href="/#projects">← All projects</a>
                 </li>
               )
             }
@@ -124,7 +124,32 @@ const isHome = Astro.url.pathname === '/';
         const bySection = new Map(
           navLinks.map((a) => [a.getAttribute('href')!.slice(1), a] as const)
         );
+        const ids = [...bySection.keys()];
+        const lastId = ids[ids.length - 1];
         const visible = new Set<string>();
+
+        const apply = () => {
+          // 페이지 바닥 근처면 마지막 섹션이 감지 밴드에 못 들어와도 현재로 본다
+          const nearBottom =
+            window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+
+          let current: string | null = null;
+          if (nearBottom) {
+            current = lastId;
+          } else {
+            for (const id of ids) {
+              if (visible.has(id)) {
+                current = id;
+                break;
+              }
+            }
+          }
+
+          bySection.forEach((link, id) => {
+            if (id === current) link.setAttribute('aria-current', 'true');
+            else link.removeAttribute('aria-current');
+          });
+        };
 
         const spy = new IntersectionObserver(
           (entries) => {
@@ -132,20 +157,7 @@ const isHome = Astro.url.pathname === '/';
               if (entry.isIntersecting) visible.add(entry.target.id);
               else visible.delete(entry.target.id);
             });
-
-            // 여러 섹션이 걸쳐 있으면 문서 순서상 가장 위쪽을 현재로 본다
-            let current: string | null = null;
-            for (const id of bySection.keys()) {
-              if (visible.has(id)) {
-                current = id;
-                break;
-              }
-            }
-
-            bySection.forEach((link, id) => {
-              if (id === current) link.setAttribute('aria-current', 'true');
-              else link.removeAttribute('aria-current');
-            });
+            apply();
           },
           { rootMargin: '-20% 0px -55% 0px' }
         );
@@ -154,6 +166,8 @@ const isHome = Astro.url.pathname === '/';
           const section = document.getElementById(id);
           if (section) spy.observe(section);
         });
+
+        window.addEventListener('scroll', apply, { passive: true });
       }
     </script>
 
