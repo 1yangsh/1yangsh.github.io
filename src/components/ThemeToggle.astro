@@ -1,0 +1,77 @@
+<button id="theme-toggle" type="button" aria-label="테마 전환" title="테마 전환">
+  <svg class="i-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+    <circle cx="12" cy="12" r="4.2" />
+    <g stroke-linecap="round">
+      <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2" />
+      <path d="M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6" />
+    </g>
+  </svg>
+  <svg class="i-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+    <path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.2 10.2z" />
+  </svg>
+</button>
+
+<script>
+  const root = document.documentElement;
+  const btn = document.getElementById('theme-toggle');
+
+  const current = () =>
+    root.dataset.theme ||
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+  btn?.addEventListener('click', () => {
+    const next = current() === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<style>
+  button {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--muted);
+    cursor: pointer;
+    flex: none;
+  }
+
+  button:hover {
+    color: var(--text);
+    border-color: var(--muted);
+  }
+
+  svg {
+    grid-area: 1 / 1;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+  }
+
+  /* 라이트 모드에서는 달(=다크로 전환) 아이콘, 다크에서는 해 */
+  .i-sun {
+    display: none;
+  }
+
+  :global(:root[data-theme='dark']) .i-sun {
+    display: block;
+  }
+
+  :global(:root[data-theme='dark']) .i-moon {
+    display: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .i-sun {
+      display: block;
+    }
+    :global(:root:not([data-theme='light'])) .i-moon {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,316 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import { profile, strengths, timeline, stack } from '../data/profile';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base
+  title={`${profile.name} · ${profile.role}`}
+  description={`${profile.headline} — ${profile.summary}`}
+>
+  <Hero />
+
+  <!-- 소개 ─────────────────────────────────────────────── -->
+  <section class="section" id="about">
+    <div class="wrap">
+      <h2 class="section-label">About</h2>
+      <ul class="cards reveal">
+        {
+          strengths.map((s, i) => (
+            <li class="card">
+              <span class="num">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- 경력 ─────────────────────────────────────────────── -->
+  <section class="section" id="work">
+    <div class="wrap">
+      <h2 class="section-label">Experience</h2>
+      <ol class="timeline reveal">
+        {
+          timeline.map((t) => (
+            <li>
+              <span class="period">{t.period}</span>
+              <div class="entry">
+                <h3>
+                  {t.org} <span class="role">{t.role}</span>
+                </h3>
+                <p>{t.note}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="stack reveal">
+        {
+          stack.map((g) => (
+            <div class="stack-row">
+              <span class="stack-name">{g.group}</span>
+              <ul class="chips">
+                {g.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 프로젝트 ─────────────────────────────────────────── -->
+  <section class="section" id="projects">
+    <div class="wrap">
+      <h2 class="section-label">Projects</h2>
+      <ul class="projects">
+        {
+          projects.map((p) => (
+            <li class="reveal">
+              <a href={`/projects/${p.id}/`} class="proj">
+                <div class="proj-head">
+                  <h3>{p.data.title}</h3>
+                  <span class="period">{p.data.period}</span>
+                </div>
+                <p>{p.data.summary}</p>
+                <ul class="chips small">
+                  {p.data.stack.slice(0, 4).map((s) => (
+                    <li>{s}</li>
+                  ))}
+                </ul>
+                <span class="more" aria-hidden="true">
+                  자세히 →
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- 연락 ─────────────────────────────────────────────── -->
+  <section class="section" id="contact">
+    <div class="wrap">
+      <h2 class="section-label">Contact</h2>
+      <p class="contact-lede reveal">데이터 플랫폼·거버넌스 이야기라면 언제든 환영합니다.</p>
+      <ul class="links reveal">
+        <li><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
+        <li><a href={profile.github} rel="me noopener">github.com/1yangsh</a></li>
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* 소개 카드 */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1rem;
+  }
+
+  .card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    padding: 1.4rem;
+  }
+
+  .num {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+  }
+
+  .card h3 {
+    font-size: 1.05rem;
+    margin-top: 0.35rem;
+    letter-spacing: -0.01em;
+  }
+
+  .card p {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  /* 경력 타임라인 */
+  .timeline li {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    gap: 1.5rem;
+    padding-block: 1.4rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .timeline li:last-child {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .period {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    padding-top: 0.2rem;
+  }
+
+  .entry h3 {
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+  }
+
+  .role {
+    font-weight: 400;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-left: 0.4rem;
+  }
+
+  .entry p {
+    margin-top: 0.3rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 40rem) {
+    .timeline li {
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+    }
+  }
+
+  /* 기술 스택 */
+  .stack {
+    margin-top: 2.5rem;
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .stack-row {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    gap: 1.5rem;
+    align-items: baseline;
+  }
+
+  .stack-name {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  @media (max-width: 40rem) {
+    .stack-row {
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+    }
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .chips li {
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    padding: 0.2rem 0.55rem;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: var(--surface-2);
+    color: var(--muted);
+  }
+
+  /* 프로젝트 카드 */
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: 1rem;
+  }
+
+  .proj {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 1.4rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .proj:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .proj-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+
+  .proj h3 {
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+  }
+
+  .proj > p {
+    margin-top: 0.55rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .chips.small {
+    margin-top: 1rem;
+  }
+
+  .more {
+    margin-top: auto;
+    padding-top: 1.1rem;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    color: var(--accent);
+  }
+
+  /* 연락 */
+  .contact-lede {
+    color: var(--muted);
+    max-width: 42ch;
+  }
+
+  .links {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+  }
+
+  .links a {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+  }
+
+  .links a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+</style>

@@ -1,0 +1,170 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { profile } from '../../data/profile';
+
+export async function getStaticPaths() {
+  const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+
+  return projects.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, next: projects[(i + 1) % projects.length] },
+  }));
+}
+
+type Props = {
+  entry: CollectionEntry<'projects'>;
+  next: CollectionEntry<'projects'>;
+};
+
+const { entry, next } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<Base title={`${entry.data.title} · ${profile.name}`} description={entry.data.summary}>
+  <article>
+    <header class="head">
+      <div class="wrap">
+        <p class="meta">
+          <span>{entry.data.org}</span>
+          <span aria-hidden="true">·</span>
+          <span>{entry.data.period}</span>
+        </p>
+        <h1>{entry.data.title}</h1>
+        <p class="summary">{entry.data.summary}</p>
+        <ul class="chips">
+          {entry.data.stack.map((s) => <li>{s}</li>)}
+        </ul>
+      </div>
+    </header>
+
+    <div class="wrap prose">
+      <Content />
+    </div>
+  </article>
+
+  <nav class="next-nav" aria-label="다음 프로젝트">
+    <div class="wrap">
+      <a href={`/projects/${next.id}/`}>
+        <span class="next-label">다음 프로젝트</span>
+        <span class="next-title">{next.data.title} →</span>
+      </a>
+    </div>
+  </nav>
+</Base>
+
+<style>
+  .head {
+    padding-block: clamp(2.5rem, 8vw, 4.5rem) 2.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .meta {
+    display: flex;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  h1 {
+    margin-top: 0.75rem;
+    font-size: clamp(1.7rem, 4.8vw, 2.5rem);
+    line-height: 1.28;
+    letter-spacing: -0.025em;
+    max-width: 20ch;
+  }
+
+  .summary {
+    margin-top: 0.85rem;
+    max-width: 52ch;
+    color: var(--muted);
+  }
+
+  .chips {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .chips li {
+    font-size: 0.78rem;
+    font-family: var(--font-mono);
+    padding: 0.2rem 0.55rem;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: var(--surface-2);
+    color: var(--muted);
+  }
+
+  /* 본문 — 문제 / 접근 / 결과 / 배운 것 */
+  .prose {
+    padding-block: clamp(2.5rem, 7vw, 3.5rem) clamp(3rem, 8vw, 4.5rem);
+    max-width: 44rem;
+  }
+
+  .prose :global(h2) {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 2.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .prose :global(h2:first-child) {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .prose :global(p) {
+    margin-top: 1rem;
+    color: var(--text);
+  }
+
+  .prose :global(h2 + p) {
+    margin-top: 1.1rem;
+  }
+
+  .prose :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1em 0.35em;
+  }
+
+  .next-nav {
+    border-top: 1px solid var(--border);
+  }
+
+  .next-nav a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-block: 2rem;
+  }
+
+  .next-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .next-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  .next-nav a:hover .next-title {
+    color: var(--accent);
+  }
+</style>

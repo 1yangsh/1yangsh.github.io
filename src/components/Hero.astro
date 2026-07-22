@@ -1,0 +1,148 @@
+---
+import { profile, metrics } from '../data/profile';
+---
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <p class="eyebrow">
+      <span class="pulse" aria-hidden="true"></span>
+      {profile.role} · {profile.nameEn}
+    </p>
+
+    <h1>{profile.headline}</h1>
+    <p class="lede">{profile.summary}</p>
+
+    <ul class="metrics" aria-label="핵심 지표">
+      {
+        metrics.map((m) => (
+          <li>
+            <span class="value">{m.value}</span>
+            <span class="label">{m.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: clamp(4rem, 12vw, 8rem) clamp(3rem, 8vw, 5rem);
+    overflow: hidden;
+  }
+
+  /* 계기판 느낌의 격자 — 아래로 갈수록 사라짐 */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 78%);
+    mask-image: linear-gradient(to bottom, #000 0%, transparent 78%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 var(--accent-soft);
+    animation: pulse 2.6s ease-out infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 var(--accent-soft);
+    }
+    70% {
+      box-shadow: 0 0 0 8px transparent;
+    }
+    100% {
+      box-shadow: 0 0 0 0 transparent;
+    }
+  }
+
+  h1 {
+    font-size: clamp(2rem, 6.2vw, 3.4rem);
+    line-height: 1.22;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    max-width: 18ch;
+  }
+
+  .lede {
+    margin-top: 1.25rem;
+    max-width: 46ch;
+    color: var(--muted);
+    font-size: clamp(1rem, 2.2vw, 1.1rem);
+  }
+
+  .metrics {
+    margin-top: clamp(2.5rem, 6vw, 3.5rem);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    overflow: hidden;
+  }
+
+  .metrics li {
+    padding: 1.15rem 1.25rem;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .metrics li:last-child {
+    border-right: 0;
+  }
+
+  .value {
+    font-family: var(--font-mono);
+    font-size: clamp(1.35rem, 3.6vw, 1.7rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+    line-height: 1.2;
+  }
+
+  .label {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  /* 2열로 접힐 때 격자선 재정렬 */
+  @media (max-width: 46rem) {
+    .metrics {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .metrics li:nth-child(2n) {
+      border-right: 0;
+    }
+    .metrics li:nth-child(-n + 2) {
+      border-bottom: 1px solid var(--border);
+    }
+  }
+</style>
