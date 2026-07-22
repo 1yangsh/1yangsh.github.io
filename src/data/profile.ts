@@ -46,7 +46,7 @@ export const timeline = [
   {
     period: '2021.06 — 2022.06',
     org: '해줌',
-    role: 'Backend / Data Engineer',
+    role: 'Software Engineer',
     note: '태양광 발전 데이터 수집 플랫폼, 기상 데이터 파이프라인 자동화',
   },
 ] as const;

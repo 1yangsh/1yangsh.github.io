@@ -1,5 +1,5 @@
 ---
-title: Kubernetes 기반 Airflow 플랫폼
+title: Airflow 구축 및 운영
 period: "2022.06 — 2023.05"
 org: 쏘카
 summary: 단일 호스트에서 돌던 Airflow를 이중화·격리·시크릿 관리를 갖춘 플랫폼으로 재구축.

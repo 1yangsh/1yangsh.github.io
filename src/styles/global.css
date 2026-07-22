@@ -16,7 +16,10 @@
 
   --max: 62rem;
   --pad: clamp(1.25rem, 5vw, 2.5rem);
-  --radius: 10px;
+  --radius: 12px;
+
+  /* 떠 있는 내비가 차지하는 높이 — 첫 화면 여백과 앵커 오프셋에 함께 쓴다 */
+  --nav-h: 4.75rem;
 }
 
 :root[data-theme='dark'] {
@@ -72,7 +75,26 @@ ol {
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-h);
   -webkit-text-size-adjust: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border: 3px solid var(--bg);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
 }
 
 @media (prefers-reduced-motion: reduce) {

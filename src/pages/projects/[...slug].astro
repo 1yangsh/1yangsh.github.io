@@ -63,7 +63,7 @@ const { Content } = await render(entry);
 
 <style>
   .head {
-    padding-block: clamp(2.5rem, 8vw, 4.5rem) 2.25rem;
+    padding-block: calc(var(--nav-h) + clamp(1.25rem, 5vw, 2.75rem)) 2.25rem;
     border-bottom: 1px solid var(--border);
   }
 

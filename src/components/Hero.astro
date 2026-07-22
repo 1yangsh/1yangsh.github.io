@@ -28,8 +28,26 @@ import { profile, metrics } from '../data/profile';
 <style>
   .hero {
     position: relative;
-    padding-block: clamp(4rem, 12vw, 8rem) clamp(3rem, 8vw, 5rem);
+    padding-block: calc(var(--nav-h) + clamp(2rem, 8vw, 5rem)) clamp(3rem, 8vw, 5rem);
     overflow: hidden;
+  }
+
+  /* 배경 미디어 대신 은은한 방사형 글로우로 첫 화면 분위기를 만든다 */
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(52rem, 120%);
+    aspect-ratio: 1;
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--accent) 16%, transparent) 0%,
+      transparent 62%
+    );
+    pointer-events: none;
+    z-index: 0;
   }
 
   /* 계기판 느낌의 격자 — 아래로 갈수록 사라짐 */
@@ -44,10 +62,12 @@ import { profile, metrics } from '../data/profile';
     -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 78%);
     mask-image: linear-gradient(to bottom, #000 0%, transparent 78%);
     pointer-events: none;
+    z-index: 0;
   }
 
   .hero-inner {
     position: relative;
+    z-index: 1;
   }
 
   .eyebrow {
@@ -83,11 +103,11 @@ import { profile, metrics } from '../data/profile';
   }
 
   h1 {
-    font-size: clamp(2rem, 6.2vw, 3.4rem);
-    line-height: 1.22;
-    letter-spacing: -0.03em;
-    font-weight: 700;
-    max-width: 18ch;
+    font-size: clamp(2.25rem, 7.4vw, 4.25rem);
+    line-height: 1.18;
+    letter-spacing: -0.035em;
+    font-weight: 750;
+    max-width: 16ch;
   }
 
   .lede {
