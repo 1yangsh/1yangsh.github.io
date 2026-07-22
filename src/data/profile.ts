@@ -4,7 +4,7 @@ export const profile = {
   role: 'Data Engineer',
   headline: '데이터 파이프라인을 만들고 운영합니다',
   summary:
-    '백엔드 1년을 거쳐 데이터 엔지니어로 4년째입니다. 운영 DB의 데이터를 웨어하우스로 옮기고, 분석가가 쓸 수 있는 형태로 다듬는 일을 합니다.',
+    '백엔드 1년을 거쳐, 4년째 운영 DB의 데이터를 웨어하우스로 옮기고 분석가가 쓸 수 있게 다듬고 있는 데이터 엔지니어입니다.',
   email: 'ysh410@gmail.com',
   github: 'https://github.com/1yangsh',
   linkedin: 'https://www.linkedin.com/in/yangseunghyeon/',

@@ -158,6 +158,29 @@ const { Content } = await render(entry);
     margin-top: 1.1rem;
   }
 
+  /* Result 절의 현상·수치 목록 */
+  .prose :global(ul) {
+    margin-top: 1.1rem;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .prose :global(li) {
+    position: relative;
+    padding-left: 1.1rem;
+  }
+
+  .prose :global(li)::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 5px;
+    height: 5px;
+    border-radius: 1px;
+    background: var(--accent);
+  }
+
   .prose :global(code) {
     font-family: var(--font-mono);
     font-size: 0.9em;
