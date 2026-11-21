@@ -82,7 +82,13 @@ export const strengthsByLocale = {
 export const timelineByLocale = {
   ko: [
     {
-      period: '2022.06 — 현재',
+      period: '2026.09 — 현재',
+      org: '우리자산운용',
+      role: 'Data Engineer',
+      note: 'Databricks 레이크하우스 운영, KRX 시장 데이터 수집 파이프라인, 플랫폼 모니터링·알람 체계',
+    },
+    {
+      period: '2022.06 — 2026.08',
       org: '쏘카',
       role: 'Data Engineer',
       note: '배치 플랫폼 구축, 운영DB→웨어하우스 파이프라인, 가격·면책 산정 서버, CDC 레이크하우스',
@@ -96,7 +102,13 @@ export const timelineByLocale = {
   ],
   en: [
     {
-      period: '2022.06 — Present',
+      period: '2026.09 — Present',
+      org: 'Woori Asset Management',
+      role: 'Data Engineer',
+      note: 'Databricks lakehouse operations, KRX market data ingestion pipeline, platform monitoring and alerting',
+    },
+    {
+      period: '2022.06 — 2026.08',
       org: 'SOCAR',
       role: 'Data Engineer',
       note: 'Batch platform, operational DB → warehouse pipelines, real-time pricing server, CDC lakehouse',
@@ -113,14 +125,14 @@ export const timelineByLocale = {
 export const stackByLocale = {
   ko: [
     { group: 'Orchestration', items: ['Airflow', 'dbt'] },
-    { group: 'Warehouse & Lakehouse', items: ['BigQuery', 'Apache Iceberg'] },
+    { group: 'Warehouse & Lakehouse', items: ['BigQuery', 'Databricks', 'Apache Iceberg'] },
     { group: 'Streaming & CDC', items: ['Kafka'] },
     { group: 'Infrastructure', items: ['Docker', 'Kubernetes', 'GKE', 'EKS', 'Helm', 'Datadog'] },
     { group: 'Language', items: ['Python', 'SQL'] },
   ],
   en: [
     { group: 'Orchestration', items: ['Airflow', 'dbt'] },
-    { group: 'Warehouse & Lakehouse', items: ['BigQuery', 'Apache Iceberg'] },
+    { group: 'Warehouse & Lakehouse', items: ['BigQuery', 'Databricks', 'Apache Iceberg'] },
     { group: 'Streaming & CDC', items: ['Kafka'] },
     { group: 'Infrastructure', items: ['Docker', 'Kubernetes', 'GKE', 'EKS', 'Helm', 'Datadog'] },
     { group: 'Language', items: ['Python', 'SQL'] },
